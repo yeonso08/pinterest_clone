@@ -6,6 +6,7 @@ import Create from "./pages/Create";
 import Profile from "./pages/Profile";
 import CreatedProfile from "./components/profile/CreatedProfile";
 import SavedProfile from "./components/profile/SavedProfile";
+import Detail from "./pages/Detail";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Main /> },
       { path: "create", element: <Create /> },
+      { path: "pin/:id", element: <Detail /> },
+
       // { path: "profile/:id", element: <Profile /> },
     ],
   },
