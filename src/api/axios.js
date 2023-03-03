@@ -4,6 +4,7 @@ const instance = axios.create({
   baseURL: `${process.env.REACT_APP_TODOS}`,
   headers: {
     "Access-Control-Allow-Origin": "*",
+    "Content-Type": "multipart/form-data",
   },
 });
 
