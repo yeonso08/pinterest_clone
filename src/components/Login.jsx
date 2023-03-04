@@ -5,7 +5,7 @@ import { Modal, Button, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { logIn } from "../api/sign";
 
-const LogIn = ({ show, onHide }) => {
+const Login = ({ show, onHide }) => {
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
@@ -105,7 +105,7 @@ const LogIn = ({ show, onHide }) => {
   );
 };
 
-export default LogIn;
+export default Login;
 
 const StOr = styled.div`
   width: 100%;
@@ -129,4 +129,3 @@ const StOr = styled.div`
 //   font-size: 13px;
 //   margin: 5px 0px 5px;
 // `;
-
