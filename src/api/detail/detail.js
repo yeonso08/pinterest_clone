@@ -9,3 +9,12 @@ export const getPinDetail = async (payload) => {
     console.log(error);
   }
 };
+
+export const getPinDetailComment = async (payload) => {
+  try {
+    const response = await instance.get(`pins/${payload}/comments`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

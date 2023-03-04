@@ -35,6 +35,10 @@ const StImage = styled.img`
   width: 100%;
   border-radius: 15px;
   cursor: zoom-in;
+
+  &:hover {
+    color: tomato;
+  }
 `;
 
 const StDiv = styled.div`
