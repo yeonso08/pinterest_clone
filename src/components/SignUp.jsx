@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Modal, Button, Form, Container } from "react-bootstrap";
 import { signUp } from "../api/sign";
 
+
 const SignUp = ({ show, onHide }) => {
   const navigate = useNavigate();
 
@@ -157,3 +158,4 @@ const StOr = styled.div`
   font-weight: bold;
   margin: 10px 0 5px;
 `;
+
