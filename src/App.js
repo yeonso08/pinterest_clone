@@ -19,8 +19,7 @@ const router = createBrowserRouter([
       { path: "create", element: <Create /> },
       { path: "detail", element: <Detail />},
       { path: "pin/:id", element: <Detail /> },
-
-      // { path: "profile/:id", element: <Profile /> },
+      { path: "profile/:id", element: <Profile /> },
     ],
   },
   {

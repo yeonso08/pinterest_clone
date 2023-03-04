@@ -7,13 +7,17 @@ export const upload = async (payload) => {
                 title: payload.title,
                 image: payload.image,
                 content: payload.content
-            }) 
+            },
+            {
+                headers: { "Content-Type": "multipart/form-data"}
+            }
+        )
         alert("업로드 성공");
         return response;
-    } catch {
-        console.log(payload);
+    } catch(error) {
+        console.error(error);
         alert("업로드 실패");
-        
+        throw error;
     }
 
 };

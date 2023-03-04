@@ -23,11 +23,15 @@ export const logIn = async (userInfo) => {
       { withCredentials: true }
     );
 
-    console.log("api : ", response.headers.Authorization);
-    // 로컬 스토리지에 access_token과 refresh_token 저장
-    localStorage.setItem("access_token", response.data.token);
-    // localStorage.setItem("refresh_token", response.data.refresh_token);
+    console.log("api : ", response.headers.authorization);
+    const token = response.headers.authorization;
+    const tokenN = token.split(" ")[1];
+    console.log(tokenN);
 
+    // 로컬 스토리지에 access_token과 refresh_token 저장
+    localStorage.setItem("access_token", tokenN);
+    // localStorage.setItem("refresh_token", response.data.refresh_token);
+    // axios
     //axios 인스턴스의 default header에 access_token 설정
     // api.defaults.headers.common[
     //   "Authorization"
