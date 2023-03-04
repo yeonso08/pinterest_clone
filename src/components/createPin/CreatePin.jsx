@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { upload } from '../../api/create';
 
@@ -29,6 +29,8 @@ const CreatePin = () => {
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   const [showMessage, setShowMessage] = useState(false)
+
+  const imgRef = useRef();
   
   const uploadMutation = useMutation(upload, {
     onSuccess: (response) => {
@@ -42,6 +44,17 @@ const CreatePin = () => {
     setShowMessage(true);
 };
 
+const saveImgFile = (e) => {
+  e.preventDefault();
+	// const file = imgRef.current.files[0];
+  const file = e.target.files[0];
+	const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+        setImage(reader.result);
+   	};
+};
+
 const handleSubmit = async(e) => {
   e.preventDefault();
   const formData = new FormData();
@@ -49,8 +62,7 @@ const handleSubmit = async(e) => {
   formData.append("content", content);
   formData.append("image", image);
   uploadMutation.mutate(formData);
-
-
+  
   for (const keyValue of formData) console.log(keyValue);
 }
 
@@ -81,9 +93,7 @@ const handleSubmit = async(e) => {
             <label
               htmlFor="upload-img"
               id="upload-img-label"
-              style={{
-                display: true ? 'block' : 'none',
-              }}
+              style={{ display: 'block' }}
             >
               <UploadImgContainer>
                 <div className="dotted-border">
@@ -115,16 +125,18 @@ const handleSubmit = async(e) => {
                 name="upload-img"
                 id="upload-img"
                 accept="image/*"
-                onChange={(e) => setImage(e.target.files[0])}
+                aria-hidden="false"
+                // ref={imgRef}
+                // onChange={(e) => setImage(e.target.files[0])}
+                onChange={saveImgFile}
               />
             </label>
             <ShowPin
-              style={{
-                display: false ? 'block' : 'none',
-              }}
-            >
+>
               <PinImage>
-                <img alt="pin_image" />
+                <img alt="pin_image" 
+                src={image ? image :`/images/icon/user.png`}
+                />
               </PinImage>
             </ShowPin>
           </LeftSection2>
