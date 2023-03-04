@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import SignUp from "../components/SignUp";
-import LogIn from "../components/LogIn";
-
-
+import Login from "../components/Login";
 
 const Header = () => {
   const [signUpModal, setSignUpModal] = useState(false);
@@ -11,7 +9,7 @@ const Header = () => {
   return (
     <div>
       <SignUp show={signUpModal} onHide={() => setSignUpModal(false)} />
-      <LogIn show={LogInModal} onHide={() => setLogInModal(false)} />
+      <Login show={LogInModal} onHide={() => setLogInModal(false)} />
       <header>
         <Navbar bg="light" expand="lg">
           <Navbar.Brand>Pinterest</Navbar.Brand>
