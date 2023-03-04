@@ -1,12 +1,32 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useMutation } from "react-query";
 import { Modal, Button, Form, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { logIn } from "../api/sign";
 
 const LogIn = ({ show, onHide }) => {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
+  const { mutate } = useMutation(logIn, {
+    onSuccess: (response) => {
+      console.log("res: ", response);
+      if (response) {
+        alert("로그인 성공");
+        navigate("/");
+      }
+    },
+  });
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    const user = {
+      username: username,
+      password: password,
+    };
+    mutate(user);
+  };
 
   return (
     <Modal
@@ -23,21 +43,31 @@ const LogIn = ({ show, onHide }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={onSubmitHandler}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>이메일</Form.Label>
-              <Form.Control type="email" placeholder="이메일" />
+              <Form.Control
+                type="text"
+                placeholder="이메일"
+                onChange={(e) => setusername(e.target.value)}
+                name="username"
+                value={username}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>비밀번호</Form.Label>
-              <Form.Control type="password" placeholder="비밀번호" />
+              <Form.Control
+                type="password"
+                placeholder="비밀번호"
+                onChange={(e) => setpassword(e.target.value)}
+                name="password"
+                value={password}
+              />
             </Form.Group>
-            <StSm>비밀번호를 잊으셨나요?</StSm>
             <Button
-              block
               variant="danger"
-              type="button"
+              type="submit"
               className="my-3"
               style={{
                 backgroundColor: "#ef1717",
@@ -84,13 +114,13 @@ const StOr = styled.div`
   margin: 10px 0 5px;
 `;
 
-const StSm = styled.div`
-  width: 100%;
-  text-align: start;
-  font-weight: bold;
-  font-size: 13px;
-  margin: 5px 0px 5px;
-`;
+// const StSm = styled.div`
+//   width: 100%;
+//   text-align: start;
+//   font-weight: bold;
+//   font-size: 13px;
+//   margin: 5px 0px 5px;
+// `;
 
 // const StSignUp = styled.div`
 //   width: 100%;
