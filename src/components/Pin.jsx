@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CiSaveDown2 } from "react-icons/ci";
@@ -6,11 +6,34 @@ import { CiSaveDown2 } from "react-icons/ci";
 export default function Pin({ src, id }) {
   const navigate = useNavigate();
   const title = "타이틀입니다.";
-  return (
-    <StDiv>
-      <StImage src={src} onClick={() => navigate(`pin/${id}`)} />
+  const [ishover, setIsHover] = useState(false);
+  const handleMouseEnter = () => {
+    setIsHover(true);
+    console.log(ishover);
+  };
 
-      <Btn
+  const handleMouseLeave = () => {
+    setIsHover(false);
+  };
+  return (
+    <StDiv onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <StImage src={src} onClick={() => navigate(`pin/${id}`)} />
+      {ishover ? (
+        <>
+          <Btn
+            onClick={() => {
+              alert("저장");
+            }}
+          >
+            저장
+          </Btn>
+          <StLabel>{title}</StLabel>
+          <StSaveDiv onClick={() => alert("다운")}>
+            <StIcon size={23} />
+          </StSaveDiv>
+        </>
+      ) : null}
+      {/* <Btn
         onClick={() => {
           alert("저장");
         }}
@@ -20,7 +43,7 @@ export default function Pin({ src, id }) {
       <StLabel>{title}</StLabel>
       <StSaveDiv onClick={() => alert("다운")}>
         <StIcon size={23} />
-      </StSaveDiv>
+      </StSaveDiv> */}
     </StDiv>
   );
 }
@@ -35,16 +58,16 @@ const StImage = styled.img`
   width: 100%;
   border-radius: 15px;
   cursor: zoom-in;
-
-  &:hover {
-    color: tomato;
-  }
 `;
 
 const StDiv = styled.div`
   position: relative;
   width: 100%;
+  &:hover ${StImage} {
+    opacity: 0.7;
+  }
 `;
+
 const StLabel = styled.label`
   position: absolute;
   top: 5px;

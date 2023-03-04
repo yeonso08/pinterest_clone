@@ -20,10 +20,11 @@ const images = [
 ];
 
 export default function MainLayout() {
-  //   const { isLoading, isError, data } = useQuery("pins", getPinList, {});
+  const { isLoading, isError, data } = useQuery("pins", getPinList, {});
+  console.log(data);
 
-  //   if (isLoading) return <p>Loading...</p>;
-  //   if (isError) return <p>{isError}</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>{isError}</p>;
   console.log("여긴가?");
   return (
     <StDiv>
