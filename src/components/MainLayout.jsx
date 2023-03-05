@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Pin from "./Pin";
 import { getPinList } from "../api/main/mainapi";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
@@ -20,8 +20,18 @@ const images = [
 ];
 
 export default function MainLayout() {
-  const { isLoading, isError, data } = useQuery("pins", getPinList, {});
-  console.log(data);
+  const queryClient = useQueryClient();
+
+  const searchResults = queryClient.getQueryData("searchResults");
+  console.log("search ", searchResults);
+
+  const { isLoading, isError, data: lists } = useQuery("pins", getPinList);
+  console.log("lits", lists);
+
+  const data = searchResults ? searchResults : lists;
+  console.log("data: ", data);
+
+  // console.log(data);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>{isError}</p>;

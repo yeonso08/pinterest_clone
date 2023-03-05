@@ -6,5 +6,7 @@ export const getPinList = async () => {
     const response = await instance.get("/pins");
     console.log(response);
     return response;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };

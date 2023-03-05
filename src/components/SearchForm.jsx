@@ -1,18 +1,31 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { MdCancel } from "react-icons/md";
+import { useQueryClient, useQuery } from "react-query";
+import { getSearchPins } from "../api/main/search";
+import { useNavigate } from "react-router-dom";
+import instance from "../api/axios";
 
 export default function SearchForm() {
+  const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
+  const queryClient = useQueryClient();
 
-  function handleKeyDown(event) {
+  const handleKeyDown = async (event) => {
     if (event.keyCode === 13) {
       console.log("Enter key pressed");
 
       // 여기에 엔터를 눌렀을 때 실행할 코드를 작성합니다.
+      const { data } = await instance.get(`/search?q=${searchInput}`);
+      queryClient.setQueryData("searchResults", data);
+      // const { data } = useQuery(["searchResults", searchInput], getSearchPins, {
+      //   cacheTime: 1000,
+      // });
       setSearchInput("");
+      navigate("/");
     }
-  }
+  };
   function handleClear() {
     setSearchInput("");
   }
