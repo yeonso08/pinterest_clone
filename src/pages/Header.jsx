@@ -5,6 +5,7 @@ import Login from "../components/Login";
 import styled from "styled-components";
 import SearchForm from "../components/SearchForm";
 
+
 const Header = () => {
   const [signUpModal, setSignUpModal] = useState(false);
   const [LogInModal, setLogInModal] = useState(false);
