@@ -156,4 +156,6 @@ const StOr = styled.div`
   text-align: center;
   font-weight: bold;
   margin: 10px 0 5px;
+
 `;
+
