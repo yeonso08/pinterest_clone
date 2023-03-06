@@ -27,10 +27,10 @@ const SignUp = ({ show, onHide }) => {
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    // if (name === "username")
-    //   !regUsername.test(value)
-    //     ? setUsernameInput("올바른 이메일 주소가 아닙니다.")
-    //     : setUsernameInput("");
+    if (name === "username")
+      !regUsername.test(value)
+        ? setUsernameInput("올바른 이메일 주소가 아닙니다.")
+        : setUsernameInput("");
 
     if (name === "nickname")
       !regNickname.test(value)

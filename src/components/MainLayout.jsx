@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pin from "./Pin";
 import { getPinList } from "../api/main/mainapi";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
@@ -20,8 +20,30 @@ const images = [
 ];
 
 export default function MainLayout() {
-  const { isLoading, isError, data } = useQuery("pins", getPinList, {});
-  console.log(data);
+  const [datalist, setDatalist] = useState([]);
+  const queryClient = useQueryClient();
+
+  // const { data: searchResults, refetch } = useQuery("searchResults");
+  // console.log("searchResults", searchResults);
+
+  const { isLoading, isError, data: lists } = useQuery("pins", getPinList);
+  console.log("lits", lists);
+  // const { isLoading, isError, data: lists } = useQuery("pins", unsplash);
+  // console.log("lits", lists);
+  // const {is}
+
+  // const data = searchResults ? setDatalist(searchResults) : setDatalist(lists);
+  // searchResults ? setDatalist(searchResults) : setDatalist(lists);
+  // useEffect(() => {
+  //   searchResults ? setDatalist(searchResults) : setDatalist(lists);
+  //   console.log("ll", datalist);
+  // }, [datalist]);
+  // useEffect(() => {
+  //   console.log("오긴옴?");
+  //   searchResults ? setDatalist(searchResults) : setDatalist(lists);
+  // }, [searchResults]);
+
+  // console.log(datalist);
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>{isError}</p>;
@@ -41,8 +63,8 @@ export default function MainLayout() {
         }}
       >
         <Masonry gutter="10px">
-          {images.map((image, i) => {
-            return <Pin src={image} id={i}></Pin>;
+          {lists?.map((item) => {
+            return <Pin item={item}></Pin>;
           })}
         </Masonry>
       </ResponsiveMasonry>

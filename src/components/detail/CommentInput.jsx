@@ -7,7 +7,7 @@ export default function CommentInput() {
       <form>
         <div>
           <input type="text" />
-          <button>send</button>
+          <button>send!</button>
         </div>
       </form>
     </div>
