@@ -22,7 +22,6 @@ export const getPinDetailComment = async (payload) => {
 export const getPinDetail = async (id) => {
   try {
     const response = await api.get('/pins/',  {
-      params: { id: id },
     })
     console.log(response);
     return response;

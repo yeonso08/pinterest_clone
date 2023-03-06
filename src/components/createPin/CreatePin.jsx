@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { upload } from '../../api/create';
 
+
 import {
   PinWriteBox,
   AddPinContainer,
@@ -179,7 +180,7 @@ const handleSubmit = async(e) => {
               type="text"
               id="content"
               value={content}
-              onChange={(e) => setContent(e.target.va)}
+              onChange={(e) => setContent(e.target.value)}
               maxLength={200}
             />
             <AddSubTextButton>대체 텍스트 추가</AddSubTextButton>
