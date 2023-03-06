@@ -10,7 +10,6 @@ import CreatedProfile from "./components/profile/CreatedProfile";
 import SavedProfile from "./components/profile/SavedProfile";
 import SearchPins from "./components/SearchPins";
 
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +24,6 @@ const router = createBrowserRouter([
       { path: "search/pins", element: <SearchPins /> },
 
       // { path: "profile/:id", element: <Profile /> },
-
     ],
   },
   {
