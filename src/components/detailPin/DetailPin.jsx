@@ -22,13 +22,20 @@ export default function DetailPin() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [title, setTitle] = useState("")
+  const [content, setcontent] = useState("")
 
 
     if (isLoading) return <p>Loading...</p>;
     if (isError) return <p>{isError}</p>;
 
     const onSelect = (e) => {
+    e.preventDefault();
       setIndex(e.target.value);
+      if (e.target.value==='0'){
+        setShow(true)
+      }
+  
     }
    
   
@@ -50,14 +57,14 @@ export default function DetailPin() {
               <div className='headerbox'>
                 <div>
                   <DivIconBox size='48'>
+                  <IoIosMore /> 
                       <select value={index} onChange={onSelect}>
-                        {/* <IoIosMore /> */}
+                        
                         <option value="0">핀수정</option>
                         <option value="1">이미지 다운로드</option>
                         <option value="2">핀 신고 </option>
                         <option value="3">핀 임베드 코드 가져오기 </option>
                       </select>
-                      {index === "1" ? setShow(true) : null} 
                   </DivIconBox>
                   <DefaultIcon size='48'>
                     <svg height="20" width="20" viewBox="0 0 24 24" aria-hidden="true" aria-label role="img">
@@ -99,33 +106,36 @@ export default function DetailPin() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>이 핀 수정하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label>제목</Form.Label>
               <Form.Control
-                type="email"
-                placeholder="name@example.com"
+                type="text"
                 autoFocus
+                
               />
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Label>설명</Form.Label>
+              <Form.Control type="text" />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
+        <Button variant="primary" onClick={handleClose}>
+            저장
+          </Button>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            취소
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            저장
           </Button>
         </Modal.Footer>
       </Modal>
