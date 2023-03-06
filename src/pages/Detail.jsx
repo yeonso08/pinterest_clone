@@ -1,56 +1,62 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getPinDetail } from "../api/detail/detail";
 import styled from "styled-components";
 import CommentList from "../components/detail/CommentList";
 import CommentInput from "../components/detail/CommentInput";
+import DetailPin from "../components/detailPin/DetailPin";
+
 
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [detailpin, setDetailpin] = useState({});
+  const image = new Image();
+  // image.src = data.filePath;
 
   //   useEffect(() => {
   //     const response = getPinDetail(id);
   //     setDetailpin(response);
   //   }, [id]);
 
-  //   const { isLoading, isError, data } = useQuery("pindetail", getPinDetail, {});
+    // const { isLoading, isError, data } = useQuery("pindetail", getPinDetail, {});
 
   //   if (isLoading) return <p>Loading...</p>;
   //   if (isError) return <p>{isError}</p>;
+  
 
   return (
-    <StDiv>
-      <StPrev onClick={() => navigate("/")}>이전으로</StPrev>
+    // <StDiv>
+    //   <StPrev onClick={() => navigate("/")}>이전으로</StPrev>
 
-      <StDetailDiv>
-        <StImagePin src="https://picsum.photos/340/700"></StImagePin>
-        <StPinInfoDiv>
-          <StHeaderDiv>
-            <button>asdf</button>
-            <button>저장</button>
-          </StHeaderDiv>
-          <StBodyDiv>
-            {/* 하나의 component로 */}
-            <h1>제목</h1>
-            <p>내용입니다.</p>
-            <div>
-              <h1>작성자 프로틸</h1>
-            </div>
-          </StBodyDiv>
-          <StCommentDiv>
-            {/* 댓글 리스트 컴포넌트 */}
-            <CommentList />
+    //   <StDetailDiv>
+    //     {/* <StImagePin src={image.src}></StImagePin> */}
+    //     <StPinInfoDiv>
+    //       <StHeaderDiv>
+    //         <button>asdf</button>
+    //         <button>저장</button>
+    //       </StHeaderDiv>
+    //       <StBodyDiv>
+    //         {/* 하나의 component로 */}
+    //       <h1>data.title</h1>
+    //         <p>data.conetnt</p>
+    //         <div>
+    //           <h1>data.nickname</h1>
+    //         </div>
+    //       </StBodyDiv>
+    //       <StCommentDiv>
+    //         {/* 댓글 리스트 컴포넌트 */}
+    //         <CommentList />
 
-            <StCommentChildDiv>
-              <CommentInput />
-            </StCommentChildDiv>
-          </StCommentDiv>
-        </StPinInfoDiv>
-      </StDetailDiv>
-    </StDiv>
+    //         <StCommentChildDiv>
+    //           <CommentInput />
+    //         </StCommentChildDiv>
+    //       </StCommentDiv>
+    //     </StPinInfoDiv>
+    //   </StDetailDiv>
+    // </StDiv>
+    <DetailPin />
   );
 }
 
