@@ -5,7 +5,8 @@ import { Modal, Button, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { logIn } from "../api/sign";
 
-const Login = ({ show, onHide }) => {
+const Login = ({ show, onHide, check }) => {
+  console.log(show);
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
@@ -14,6 +15,8 @@ const Login = ({ show, onHide }) => {
       console.log("res: ", response);
       if (response) {
         alert("로그인 성공");
+        check();
+        onHide();
         navigate("/");
       }
     },
@@ -77,7 +80,6 @@ const Login = ({ show, onHide }) => {
             >
               로그인
             </Button>
-            <StOr>또는</StOr>
             <Button
               variant="info"
               type="button"
@@ -130,5 +132,3 @@ const StOr = styled.div`
 //   margin: 5px 0px 5px;
 
 // `;
-
-

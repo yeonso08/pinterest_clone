@@ -1,33 +1,84 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import styled from "styled-components";
 import Pin from "./Pin";
 import { getPinList } from "../api/main/mainapi";
 import { useQuery, useQueryClient } from "react-query";
 
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-
-const images = [
-  "https://picsum.photos/250/300",
-  "https://picsum.photos/500/330",
-  "https://picsum.photos/400/500",
-  "https://picsum.photos/1000/1100",
-  "https://picsum.photos/500/1000",
-  "https://picsum.photos/2000/1500",
-  "https://picsum.photos/400/750",
-  "https://picsum.photos/650/500",
-  "https://picsum.photos/340/780",
-  "https://picsum.photos/500/330",
-];
+import Spinner from "./Spinner";
+import { useInfiniteScroll } from "./scroll/useInfiniteScroll";
+import axios from "axios";
+import instance from "../api/axios";
 
 export default function MainLayout() {
-  const [datalist, setDatalist] = useState([]);
-  const queryClient = useQueryClient();
+  const [isnext, setIsnext] = useState(true);
+  const page = useInfiniteScroll();
+  console.log(page);
+  const [pins, setPins] = useState([]);
+  const [temp, setTemps] = useState([]);
+
+  const [hasNextPage, setHasNextPage] = useState(true);
+
+  useEffect(() => {
+    const getDetailPost = async () => {
+      const data = await instance.get(`/pins`);
+      console.log("da", data);
+      return data;
+    };
+    //   if(hasNextPage){
+    //   getDetailPost().then(result=>{
+    //     setHasNextPage(result.isnext)
+    //     setTemps([...temp, ...result])
+    //   });
+    // }
+    getDetailPost().then((result) => setTemps([...temp, ...result.data]));
+  }, [page]);
+  console.log("temp", temp);
+
+  // const [page, setPage] = useState(1);
+  // console.log(page);
+  // const handleScroll = () => {
+  //   const scrollHeight = document.documentElement.scrollHeight;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const clientHeight = document.documentElement.clientHeight;
+
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     setPage(page + 1);
+  //   }
+  // };
+  // useEffect(() => {
+  //   // scroll event listener 등록
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () =>
+  //     // 끝나면 scroll event listener 제거해서 계~속 더 못 내리게
+  //     {
+  //       window.removeEventListener("scroll", handleScroll);
+  //     };
+  // });
+
+  // const [datalist, setDatalist] = useState([]);
+  // const queryClient = useQueryClient();
 
   // const { data: searchResults, refetch } = useQuery("searchResults");
   // console.log("searchResults", searchResults);
 
-  const { isLoading, isError, data: lists } = useQuery("pins", getPinList);
+  const {
+    isLoading,
+    isError,
+    data: lists,
+  } = useQuery("pins", getPinList, {
+    onSuccess: (response) => {
+      console.log(response);
+      console.log(lists);
+      lists === undefined
+        ? setPins([...response])
+        : setPins([...lists, ...response]);
+    },
+  });
   console.log("lits", lists);
+  console.log("pins;", pins);
+
+  const renderLoader = () => <Spinner />;
   // const { isLoading, isError, data: lists } = useQuery("pins", unsplash);
   // console.log("lits", lists);
   // const {is}
@@ -45,7 +96,7 @@ export default function MainLayout() {
 
   // console.log(datalist);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
   if (isError) return <p>{isError}</p>;
   // console.log("여긴가?");
   return (
@@ -63,8 +114,12 @@ export default function MainLayout() {
         }}
       >
         <Masonry gutter="10px">
-          {lists?.map((item) => {
-            return <Pin item={item}></Pin>;
+          {temp?.map((item) => {
+            return (
+              <Suspense fallback={renderLoader}>
+                <Pin item={item}></Pin>
+              </Suspense>
+            );
           })}
         </Masonry>
       </ResponsiveMasonry>
