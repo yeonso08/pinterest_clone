@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { CiSaveDown2 } from "react-icons/ci";
 
-export default function Pin({ src, id }) {
+export default function Pin({ item }) {
   const navigate = useNavigate();
   const title = "타이틀입니다.";
   const [ishover, setIsHover] = useState(false);
   const handleMouseEnter = () => {
     setIsHover(true);
-    console.log(ishover);
+    // console.log(ishover);
   };
 
   const handleMouseLeave = () => {
@@ -17,7 +17,7 @@ export default function Pin({ src, id }) {
   };
   return (
     <StDiv onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <StImage src={src} onClick={() => navigate(`pin/${id}`)} />
+      <StImage src={item.image} onClick={() => navigate(`pin/${item.title}`)} />
       {ishover ? (
         <>
           <Btn

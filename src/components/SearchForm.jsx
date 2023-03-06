@@ -17,13 +17,25 @@ export default function SearchForm() {
       console.log("Enter key pressed");
 
       // 여기에 엔터를 눌렀을 때 실행할 코드를 작성합니다.
-      const { data } = await instance.get(`/search?q=${searchInput}`);
+      const { data } = await instance.get(`/pins/search`, {
+        params: {
+          keyword: searchInput,
+        },
+      });
+      // const { data } = await instance2.get(`/photos/random`, {
+      //   params: {
+      //     client_id: process.env.REACT_APP_MY_KEY,
+      //     count: 20,
+      //     query: searchInput,
+      //   },
+      // });
+
       queryClient.setQueryData("searchResults", data);
       // const { data } = useQuery(["searchResults", searchInput], getSearchPins, {
       //   cacheTime: 1000,
       // });
-      setSearchInput("");
-      navigate("/");
+      // setSearchInput("");
+      navigate(`/search/pins?keyword=${searchInput}`);
     }
   };
   function handleClear() {
