@@ -55,7 +55,7 @@ const SignUp = ({ show, onHide }) => {
     // }
     console.log("여기왔음");
     const userData = {
-      username: usernameInput,
+      email: usernameInput,
       nickname: nicknameInput,
       password: passwordInput,
     };

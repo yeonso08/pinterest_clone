@@ -22,7 +22,7 @@ const Login = ({ show, onHide }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const user = {
-      username: username,
+      email: username,
       password: password,
     };
     mutate(user);

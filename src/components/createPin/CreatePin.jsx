@@ -46,13 +46,13 @@ const CreatePin = () => {
 
 const saveImgFile = (e) => {
   e.preventDefault();
-	// const file = imgRef.current.files[0];
   const file = e.target.files[0];
-	const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-        setImage(reader.result);
-   	};
+	// const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //       setImage(reader.result);
+  //  	};
+  setImage(file);
 };
 
 const handleSubmit = async(e) => {
@@ -61,7 +61,13 @@ const handleSubmit = async(e) => {
   formData.append("title", title);
   formData.append("content", content);
   formData.append("image", image);
-  uploadMutation.mutate(formData);
+
+  const payload = {
+    title: formData.get("title"),
+    content: formData.get("content"),
+    image: formData.get("image"),
+  };
+  uploadMutation.mutate(payload);
   
   for (const keyValue of formData) console.log(keyValue);
 }
@@ -168,11 +174,12 @@ const handleSubmit = async(e) => {
             />
             {/* {showMessage ? <>처음 40자는 일반적으로 피드에서 볼 수 있습니다.</> : null} */}
             <input
+              className="input-content"
               placeholder="사람들에게 회원님의 핀에 대해 설명해 보세요  😃"
               type="text"
               id="content"
               value={content}
-                onChange={(e) => setContent(e.target.va)}
+              onChange={(e) => setContent(e.target.va)}
               maxLength={200}
             />
             <AddSubTextButton>대체 텍스트 추가</AddSubTextButton>
