@@ -22,7 +22,7 @@ const Login = ({ show, onHide }) => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const user = {
-      username: username,
+      email: username,
       password: password,
     };
     mutate(user);
@@ -128,4 +128,7 @@ const StOr = styled.div`
 //   font-weight: bold;
 //   font-size: 13px;
 //   margin: 5px 0px 5px;
+
 // `;
+
+

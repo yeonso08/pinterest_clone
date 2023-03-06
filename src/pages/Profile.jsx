@@ -7,8 +7,7 @@ import Header from "./Header";
 export default function Profile() {
   return (
     <>
-      <Header />
-      <StFlexDiv>
+          <StFlexDiv>
         <MyProfile />
         <MyBoards />
       </StFlexDiv>

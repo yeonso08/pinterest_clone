@@ -1,18 +1,30 @@
-import { instance } from "../axios";
+import api from "../axios";
 
-export const getPinDetail = async (payload) => {
+// export const getPinDetail = async (payload) => {
+//   try {
+//     const response = await instance.get(`/pins/${payload}`);
+//     console.log(response);
+//     return response;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+export const getPinDetailComment = async (payload) => {
   try {
-    const response = await instance.get(`/pins/${payload}`);
-    console.log(response);
+    const response = await api.get(`pins/${payload}/comments`);
     return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getPinDetailComment = async (payload) => {
+export const getPinDetail = async (id) => {
   try {
-    const response = await instance.get(`pins/${payload}/comments`);
+    const response = await api.get('/pins/',  {
+      params: { id: id },
+    })
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

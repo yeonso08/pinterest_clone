@@ -3,6 +3,7 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 import SignUp from "../components/SignUp";
 import Login from "../components/Login";
 
+
 const Header = () => {
   const [signUpModal, setSignUpModal] = useState(false);
   const [LogInModal, setLogInModal] = useState(false);
