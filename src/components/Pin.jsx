@@ -17,10 +17,12 @@ export default function Pin({ item }) {
   };
   return (
     <StDiv onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+
       <StImage
         src={item.image}
         onClick={() => navigate(`/pin/${item.title}`)}
       />
+
       {ishover ? (
         <>
           <Btn

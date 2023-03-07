@@ -8,7 +8,6 @@ import Detail from "./pages/Detail";
 import Profile from "./pages/Profile";
 import CreatedProfile from "./components/profile/CreatedProfile";
 import SavedProfile from "./components/profile/SavedProfile";
-
 import SearchPins from "./components/SearchPins";
 
 const router = createBrowserRouter([
