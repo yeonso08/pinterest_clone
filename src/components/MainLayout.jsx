@@ -70,9 +70,9 @@ export default function MainLayout() {
     onSuccess: (response) => {
       console.log(response);
       console.log(lists);
-      lists === undefined
-        ? setPins([...response])
-        : setPins([...lists, ...response]);
+      // lists === undefined
+      //   ? setPins([...response])
+      //   : setPins([...lists, ...response]);
     },
   });
   console.log("lits", lists);
