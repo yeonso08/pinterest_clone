@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { DivSection, DivDetailBox, DivLeftBox, DivRightBox, DivImageBox, DivInfoBox, DivIconBox, DivButton, DefaultIcon, DivProfileImageBox } from './DetailPinStyle';
-import { getPinDetail } from "../../api/detail/detail";
-import CommentList from "../detail/CommentList";
-import CommentInput from "../detail/CommentInput";
+import { getPinDetail, removeDetail, switchDetail } from "../../api/detail/detail";
 import styled from "styled-components";
 import { IoIosMore } from 'react-icons/io' ;
 import Button from 'react-bootstrap/Button';
@@ -14,31 +12,57 @@ import Modal from 'react-bootstrap/Modal';
 
 
 export default function DetailPin() {
+  const queryClient = useQueryClient();
   const { id } = useParams();
-  const { isLoading, isError, data } = useQuery("pindetail", () => getPinDetail(id), {});
-  const navigate = useNavigate();
-  const [detailpin, setDetailpin] = useState({});
   const [index, setIndex] = useState("0")
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const [title, setTitle] = useState("")
-  const [content, setcontent] = useState("")
+  const [content, setContent] = useState("")
 
+  const { isLoading, isError, data } = useQuery("pindetail", () => getPinDetail(id));
 
-    if (isLoading) return <p>Loading...</p>;
-    if (isError) return <p>{isError}</p>;
+    const switchMutation = useMutation(switchDetail, {
+      onSuccess: () => {
+      queryClient.invalidateQueries("pindetail");
+      },
+    })
+
+    const deleteMutation = useMutation(removeDetail, {
+      onSuccess: () => {
+        queryClient.invalidateQueries("pindetail");
+      },
+    });
 
     const onSelect = (e) => {
     e.preventDefault();
       setIndex(e.target.value);
-      if (e.target.value==='0'){
+      if (e.target.value==='1'){
         setShow(true)
       }
   
     }
-   
-  
+
+    //수정 버튼
+    const changeButton = (item) => {
+      const payload = {
+        id:item.id,
+        title:title,
+        content:content,
+      };
+      console.log(payload)
+      switchMutation.mutate(payload);
+      setShow(false)
+    }
+   //삭제버튼
+    const deleteButton = (item) => {
+      deleteMutation.mutate(item.id);
+      setShow(false)     
+      console.log(item)
+    }
+    const handleClose = () => setShow(false);
+
+    if (isLoading) return <p>Loading...</p>;
+    if (isError) return <p>{isError}</p>;
 
   return (
   <DivSection>
@@ -46,6 +70,7 @@ export default function DetailPin() {
     {data.data && data.data.map((item) => {
       if(item.id == id) {
         return ( 
+          <>
         <DivDetailBox  key={item.id}>
           <DivLeftBox style={{marginLeft: '0'}}>
             <DivImageBox >
@@ -60,8 +85,8 @@ export default function DetailPin() {
                   <IoIosMore /> 
                       <select value={index} onChange={onSelect}>
                         
-                        <option value="0">핀수정</option>
-                        <option value="1">이미지 다운로드</option>
+                        <option value="0">이미지 다운로드</option>
+                        <option value="1">핀수정</option>
                         <option value="2">핀 신고 </option>
                         <option value="3">핀 임베드 코드 가져오기 </option>
                       </select>
@@ -99,23 +124,19 @@ export default function DetailPin() {
               </div>
             </DivInfoBox>
           </DivRightBox>
-        </DivDetailBox>)
-      }
-    })}
-
-
-      <Modal show={show} onHide={handleClose}>
+        </DivDetailBox>
+        <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>이 핀 수정하기</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>제목</Form.Label>
+              <Form.Label >제목</Form.Label>
               <Form.Control
                 type="text"
                 autoFocus
-                
+                onChange={(e) => setTitle(e.target.value)}
               />
             </Form.Group>
             <Form.Group
@@ -123,22 +144,29 @@ export default function DetailPin() {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>설명</Form.Label>
-              <Form.Control type="text" />
+              <Form.Control 
+              type="text" 
+              onChange={(e) => setContent(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" onClick={handleClose}>
-            저장
+        <Button variant="primary" onClick={(e) => deleteButton(item)}>
+            삭제
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             취소
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={(e) => changeButton(item)}>
             저장
           </Button>
         </Modal.Footer>
       </Modal>
+      </>
+        )
+      }
+    })}
 
    
           {/* <StCommentDiv>
@@ -175,4 +203,3 @@ const StCommentChildDiv = styled.div`
   color: white;
   border-bottom-right-radius: 40px;
 `;
-
