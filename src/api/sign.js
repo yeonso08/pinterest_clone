@@ -36,7 +36,7 @@ export const logIn = async (userInfo) => {
     // api.defaults.headers.common[
     //   "Authorization"
     // ] = `Bearer ${response.data.access_token}`;
-    alert("로그인 성공");
+    return response;
   } catch (error) {
     console.log(error.response.data);
     alert("로그인 실패");

@@ -20,6 +20,9 @@ const SignUp = ({ show, onHide }) => {
     onSuccess: (response) => {
       if (response) {
         alert("회원가입 성공");
+        onHide();
+        // LoginOn();
+        // LoginOn();
         // navigate("/");
       }
     },
@@ -156,6 +159,4 @@ const StOr = styled.div`
   text-align: center;
   font-weight: bold;
   margin: 10px 0 5px;
-
 `;
-
