@@ -23,6 +23,7 @@ export const logIn = async (userInfo) => {
     { withCredentials: true }
   );
 
+
   console.log("api : ", response);
   const token = response.headers.authorization;
   const refresh_token = response.headers.refresh_token;
@@ -47,4 +48,5 @@ export const logIn = async (userInfo) => {
   //   alert("로그인 실패");
   //   return new Error("로그인 실패");
   // }
+
 };
