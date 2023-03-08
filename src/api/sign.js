@@ -27,9 +27,11 @@ export const logIn = async (userInfo) => {
     const token = response.headers.authorization;
     const tokenN = token.split(" ")[1];
     console.log(tokenN);
+    console.log(response.data.nickname)
 
     // 로컬 스토리지에 access_token과 refresh_token 저장
     localStorage.setItem("access_token", tokenN);
+    localStorage.setItem("nickname", response.data.nickname);
     // localStorage.setItem("refresh_token", response.data.refresh_token);
     // axios
     //axios 인스턴스의 default header에 access_token 설정
