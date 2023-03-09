@@ -28,10 +28,7 @@ export default function SearchPins() {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight) {
-      console.log(scrollHeight);
-      console.log("왜안됨?");
       setPage(page + 1);
-      console.log("p", page);
       return fetchNextPage();
     }
   }
