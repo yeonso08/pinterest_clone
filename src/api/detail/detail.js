@@ -35,7 +35,11 @@ export const switchDetail = async (payload) => {
     const response = await api.patch(`/pins/${payload.id}`, {
       title: payload.title,
       content: payload.content,
-    });
+    },
+    {
+      headers: { "Content-Type": "multipart/form-data"}
+    }
+  );
       console.log(response)
       return response
   } catch(error) {

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { DivSection, DivDetailBox, DivLeftBox, DivRightBox, DivImageBox, DivInfoBox, DivIconBox, DivButton, DefaultIcon, DivProfileImageBox } from './DetailPinStyle';
 import { deleteLike, getPinDetail, likeSwitch, removeDetail, switchDetail } from "../../api/detail/detail";
 import styled from "styled-components";
-import { IoIosMore } from 'react-icons/io' ;
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -19,6 +18,7 @@ export default function DetailPin() {
   const [show, setShow] = useState(false);
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+  const navigate = useNavigate();
 
   const { isLoading, isError, data } = useQuery("pindetail", () => getPinDetail(id));
 
@@ -30,7 +30,9 @@ export default function DetailPin() {
 
     const deleteMutation = useMutation(removeDetail, {
       onSuccess: () => {
+        navigate("/")
         queryClient.invalidateQueries("pindetail");
+
       },
     });
 
@@ -57,12 +59,17 @@ export default function DetailPin() {
 
     //수정 버튼
     const changeButton = (data) => {
+      const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+
       const payload = {
         id:data,
-        title:title,
-        content:content,
+        title:formData.get("title"),
+        content:formData.get("content"),
       };
       console.log(payload)
+      for (const keyValue of formData) console.log(keyValue);
       switchMutation.mutate(payload);
       setShow(false)     
     }
@@ -101,7 +108,7 @@ export default function DetailPin() {
         <DivDetailBox  key={data.data.id}>
           <DivLeftBox style={{marginLeft: '0'}}>
             <DivImageBox >
-              <img src={data.data.image}/>
+              <img src={data.data.imageDetail}/>
             </DivImageBox>
           </DivLeftBox>
           <DivRightBox>
@@ -110,7 +117,7 @@ export default function DetailPin() {
                 <div>
                   <DivIconBox>
                   {data.data.nickname == localStorage.getItem("nickname")? 
-                  <StyledSelect value={index} onChange={onSelect}>
+                  <StyledSelect value={index} onChange={onSelect} >
                         <option value="0">이미지 다운로드</option>
                         <option value="1">핀 수정</option>
                         <option value="2">핀 신고 </option>
@@ -227,10 +234,12 @@ const StCommentChildDiv = styled.div`
   color: white;
   border-bottom-right-radius: 40px;
 `;
- const StLikeButton = styled.button`
-  background-color: white;
-  border: none;
- `
+ const StLikeButton = styled.span`
+ margin-top: 10px;
+  font-size: 19px;
+  color: red;
+  cursor: pointer;
+`;
 
 const StyledSelect = styled.select`
   appearance: none;
