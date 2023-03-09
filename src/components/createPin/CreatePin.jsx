@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { useMutation } from 'react-query';
-import { upload } from '../../api/create';
-
+import React, { useState } from "react";
+import { useMutation } from "react-query";
+import { upload } from "../../api/create";
 
 import {
   PinWriteBox,
@@ -23,7 +22,7 @@ import {
   Recommendation,
   AddSubTextButton,
   RendingPageLink,
-} from './CreatePinStyle';
+} from "./CreatePinStyle";
 
 const CreatePin = () => {
   const [title, setTitle] = useState("");
@@ -31,46 +30,42 @@ const CreatePin = () => {
   const [image, setImage] = useState("");
   const [preview, setPreview] = useState("");
 
-  
   const uploadMutation = useMutation(upload, {
     onSuccess: (response) => {
-      console.log(response)
-      
+      console.log(response);
     },
     onError: (response) => {
       console.log(response);
     },
-  });  
+  });
 
-const saveImgFile = (e) => {
-  e.preventDefault();
-  const file = e.target.files[0];
-	const reader = new FileReader();
+  const saveImgFile = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreview(reader.result);
-   	};
-  setImage(file);
-};
-
-const handleSubmit = async(e) => {
-  e.preventDefault();
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("content", content);
-  formData.append("image", image);
-
-  const payload = {
-    title: formData.get("title"),
-    content: formData.get("content"),
-    image: formData.get("image"),
+    };
+    setImage(file);
   };
-  uploadMutation.mutate(payload);
-  
-  for (const keyValue of formData) console.log(keyValue);
-}
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", image);
 
+    const payload = {
+      title: formData.get("title"),
+      content: formData.get("content"),
+      image: formData.get("image"),
+    };
+    uploadMutation.mutate(payload);
+
+    for (const keyValue of formData) console.log(keyValue);
+  };
 
   return (
     <PinWriteBox onSubmit={handleSubmit}>
@@ -97,7 +92,7 @@ const handleSubmit = async(e) => {
             <label
               htmlFor="upload-img"
               id="upload-img-label"
-              style={{ display: 'block' }}
+              style={{ display: "block" }}
             >
               <UploadImgContainer>
                 <div className="dotted-border">
@@ -119,26 +114,26 @@ const handleSubmit = async(e) => {
                     드래그하거나 클릭하여 업<p>로드</p>
                   </DragAndClick>
                   <Recommendation>
-                  권장 사항: 20MB 미만의 고화질 .jpg 파일
-                </Recommendation>
+                    권장 사항: 20MB 미만의 고화질 .jpg 파일
+                  </Recommendation>
                 </div>
               </UploadImgContainer>
               <PinImage>
-              <input
-                type="file"
-                name="upload-img"
-                id="upload-img"
-                accept="image/*"
-                aria-hidden="false"
-                tabIndex="0"
-                onChange={saveImgFile}
-              />
-              {preview ? <img src={preview} /> : null}
+                <input
+                  type="file"
+                  name="upload-img"
+                  id="upload-img"
+                  accept="image/*"
+                  aria-hidden="false"
+                  tabIndex="0"
+                  onChange={saveImgFile}
+                />
+                {preview ? (
+                  <img src={preview} style={{ width: "225px" }} />
+                ) : null}
               </PinImage>
             </label>
-            <ShowPin
->
-            </ShowPin>
+            <ShowPin></ShowPin>
           </LeftSection2>
           <LeftSection3>
             <div className="save-from-site">사이트에서 저장</div>
@@ -187,4 +182,5 @@ const handleSubmit = async(e) => {
       </AddPinContainer>
     </PinWriteBox>
   );
-}; export default CreatePin;
+};
+export default CreatePin;

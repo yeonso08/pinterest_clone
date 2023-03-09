@@ -24,7 +24,6 @@ const Header = () => {
   const LogoutHandler = () => {
     localStorage.removeItem("access_token");
 
-
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("nickname");
 
@@ -54,8 +53,17 @@ const Header = () => {
               height="30"
               className="d-inline-block align-top"
             />{" "}
-            Pinterest
+            <Button variant="dark">홈</Button>
           </Navbar.Brand>
+          <Nav.Link>
+            <Button
+              style={{ width: "80px" }}
+              variant="light"
+              onClick={() => navigate("/create")}
+            >
+              만들기
+            </Button>
+          </Nav.Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <SearchForm />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -160,4 +168,11 @@ const StInputBox = styled.input`
     outline: none;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
+`;
+
+const StSpan = styled.span`
+  background-color: black;
+  color: white;
+  width: 100px;
+  border-radius: 50%;
 `;
