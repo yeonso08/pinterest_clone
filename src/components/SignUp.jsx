@@ -88,7 +88,6 @@ const SignUp = ({ show, onHide }) => {
                 name="username"
                 value={usernameInput}
               />
-              <Form.Label>{usernameInput}</Form.Label>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -99,7 +98,6 @@ const SignUp = ({ show, onHide }) => {
                 name="nickname"
                 value={nicknameInput}
               />
-              <Form.Label>{nicknameInput}</Form.Label>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -110,7 +108,6 @@ const SignUp = ({ show, onHide }) => {
                 name="password"
                 value={passwordInput}
               />
-              <Form.Label>{passwordInput}</Form.Label>
             </Form.Group>
             <Button
               variant="danger"

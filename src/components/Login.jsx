@@ -12,7 +12,7 @@ const Login = ({ show, onHide, check }) => {
   const { mutate } = useMutation(logIn, {
     onSuccess: (response) => {
       if (response) {
-        alert("로그인 성공?");
+        alert("로그인 성공");
         check();
         onHide();
         navigate("/");
