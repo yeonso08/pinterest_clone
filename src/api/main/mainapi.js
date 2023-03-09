@@ -10,6 +10,6 @@ export const getPinList = async () => {
 };
 
 export const postPinSave = async (payload) => {
-  const response = await instance.post(`/users/save/${payload.id}`);
+  const response = await instance.post(`/mypage/save/${payload.id}`);
   return response;
 };
