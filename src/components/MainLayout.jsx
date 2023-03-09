@@ -86,6 +86,7 @@ export default function MainLayout() {
   });
   console.log("temp", temp);
   console.log("hnp?", hasNextPage);
+  console.log(temp);
 
   // useInfiniteQuery({
   //   queryKey: ["projects"],
