@@ -58,6 +58,7 @@ export default function MainLayout() {
     // console.log("onsucc", response.pages);
     setTemps([...temp, ...res.data.content]);
 
+
     return {
       lists: res.data,
       offset: pageParam,
