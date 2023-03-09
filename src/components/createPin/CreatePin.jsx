@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import { upload } from '../../api/create';
+import React, { useState } from "react";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { upload } from "../../api/create";
 
 import {
   PinWriteBox,
@@ -34,12 +34,9 @@ const CreatePin = () => {
 
   const uploadMutation = useMutation(upload, {
     onSuccess: (response) => {
-      console.log(response)
       navigate("/");
     },
-    onError: (response) => {
-      console.log(response);
-    },
+    onError: (response) => {},
   });
 
   const saveImgFile = (e) => {
@@ -122,16 +119,27 @@ const CreatePin = () => {
                 </div>
               </UploadImgContainer>
               <PinImage>
-              <input
-                type="file"
-                name="upload-img"
-                id="upload-img"
-                accept="image/*"
-                aria-hidden="false"
-                tabIndex="0"
-                onChange={saveImgFile}
-              />
-              {preview ? <img src={preview} style={{ width: "300px", height: "550px", position: "absolute", marginLeft: "200px", marginTop: "200px" }}/> : null}
+                <input
+                  type="file"
+                  name="upload-img"
+                  id="upload-img"
+                  accept="image/*"
+                  aria-hidden="false"
+                  tabIndex="0"
+                  onChange={saveImgFile}
+                />
+                {preview ? (
+                  <img
+                    src={preview}
+                    style={{
+                      width: "300px",
+                      height: "550px",
+                      position: "absolute",
+                      marginLeft: "200px",
+                      marginTop: "200px",
+                    }}
+                  />
+                ) : null}
               </PinImage>
             </label>
             <ShowPin></ShowPin>

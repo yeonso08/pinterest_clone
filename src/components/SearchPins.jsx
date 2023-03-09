@@ -11,7 +11,6 @@ import instance from "../api/axios";
 export default function SearchPins() {
   const queryclient = useQueryClient();
   const { keyword } = useParams();
-  console.log(keyword);
 
   // // console.log(keyword);
   // useEffect(() => {
@@ -28,10 +27,7 @@ export default function SearchPins() {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight) {
-      console.log(scrollHeight);
-      console.log("왜안됨?");
       setPage(page + 1);
-      console.log("p", page);
       return fetchNextPage();
     }
   }
@@ -53,7 +49,6 @@ export default function SearchPins() {
         size: SIZE,
       },
     });
-    console.log("res", res);
 
     return {
       lists: res.data,
@@ -72,22 +67,17 @@ export default function SearchPins() {
     status,
   } = useInfiniteQuery(["searchpins"], fetchProjects, {
     getNextPageParam: (lastpage, pages) => {
-      console.log("getnextPageParmr : ", lastpage, pages);
       return lastpage.offset + 1;
     },
     onSuccess: (response) => {
-      console.log("onsucc", response.pages);
       setTemps([...temp, ...response.pages[response.pages.length - 1].lists]);
     },
     onError: (error) => {
-      console.log("error", error);
       return;
     },
     staleTime: 0,
     cacheTime: 0,
   });
-
-  console.log("temp", temp);
 
   // console.log("ss", searchResults);
   // console.log("여긴가?");

@@ -9,7 +9,5 @@ export const getSearchPins = async (payload) => {
       },
     });
     return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };

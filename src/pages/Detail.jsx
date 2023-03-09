@@ -7,7 +7,6 @@ import CommentList from "../components/detail/CommentList";
 import CommentInput from "../components/detail/CommentInput";
 import DetailPin from "../components/detailPin/DetailPin";
 
-
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,11 +19,10 @@ export default function Detail() {
   //     setDetailpin(response);
   //   }, [id]);
 
-    // const { isLoading, isError, data } = useQuery("pindetail", getPinDetail, {});
+  // const { isLoading, isError, data } = useQuery("pindetail", getPinDetail, {});
 
   //   if (isLoading) return <p>Loading...</p>;
   //   if (isError) return <p>{isError}</p>;
-  
 
   return (
     // <StDiv>

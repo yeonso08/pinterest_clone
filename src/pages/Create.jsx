@@ -1,10 +1,8 @@
-import React from 'react'
-import CreatePin from '../components/createPin/CreatePin'
+import React from "react";
+import CreatePin from "../components/createPin/CreatePin";
 
 function Create() {
-  return (
-    <CreatePin />
-  )
+  return <CreatePin />;
 }
 
-export default Create
+export default Create;

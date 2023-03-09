@@ -56,7 +56,6 @@ const SignUp = ({ show, onHide }) => {
     //   alert("모든 항목을 입력해주세요.");
     //   return;
     // }
-    console.log("여기왔음");
     const userData = {
       email: usernameInput,
       nickname: nicknameInput,

@@ -6,13 +6,10 @@ export const getPinList = async () => {
       params: { page: 0, size: 4 },
     });
     return response.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const postPinSave = async (payload) => {
-  const response = await instance.post(`/users/save/${payload.id}`);
-  console.log("save res : ", response);
+  const response = await instance.post(`/mypage/save/${payload.id}`);
   return response;
 };

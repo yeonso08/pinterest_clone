@@ -3,12 +3,9 @@ import api from "./axios";
 // 회원가입
 export const signUp = async (newUser) => {
   try {
-    console.log(newUser);
     const response = await api.post("/users/signup", newUser);
-    // console.log(response.data);
     return response;
   } catch (error) {
-    console.log(error);
     alert("회원가입 실패");
   }
 };
@@ -23,8 +20,6 @@ export const logIn = async (userInfo) => {
     { withCredentials: true }
   );
 
-
-  console.log("api : ", response);
   const token = response.headers.authorization;
   const refresh_token = response.headers.refresh_token;
   const nickname = response.data.nickname;
@@ -44,9 +39,7 @@ export const logIn = async (userInfo) => {
   // ] = `Bearer ${response.data.access_token}`;
   return response;
   // } catch (error) {
-  //   console.log(error.response.data);
   //   alert("로그인 실패");
   //   return new Error("로그인 실패");
   // }
-
 };

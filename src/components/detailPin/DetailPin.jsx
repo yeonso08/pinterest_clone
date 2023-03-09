@@ -21,18 +21,18 @@ import {
   switchDetail,
 } from "../../api/detail/detail";
 import styled from "styled-components";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import {  FaHeart, FaRegHeart } from "react-icons/fa";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function DetailPin() {
   const queryClient = useQueryClient();
   const { id } = useParams();
   const [index, setIndex] = useState("0");
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const navigate = useNavigate();
 
   const { isLoading, isError, data } = useQuery("pindetail", () =>
@@ -45,13 +45,12 @@ export default function DetailPin() {
     },
   });
 
-    const deleteMutation = useMutation(removeDetail, {
-      onSuccess: () => {
-        navigate("/")
-        queryClient.invalidateQueries("pindetail");
-
-      },
-    });
+  const deleteMutation = useMutation(removeDetail, {
+    onSuccess: () => {
+      navigate("/");
+      queryClient.invalidateQueries("pindetail");
+    },
+  });
 
   const likeswitchMutation = useMutation(likeSwitch, {
     onSuccess: () => {
@@ -73,37 +72,35 @@ export default function DetailPin() {
     }
   };
 
-    //수정 버튼
-    const changeButton = (data) => {
-      const formData = new FormData();
-        formData.append("title", title);
-        formData.append("content", content);
+  //수정 버튼
+  const changeButton = (data) => {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
 
-      const payload = {
-        id:data,
-        title:formData.get("title"),
-        content:formData.get("content"),
-      };
-      console.log(payload)
-      for (const keyValue of formData) console.log(keyValue);
-      switchMutation.mutate(payload);
-      setShow(false)     
-    }
-   //삭제버튼
-    const deleteButton = (data) => {
-      const payload = {
-        id: data,
-      }
-      deleteMutation.mutate(payload);
-      setShow(false)     
-      console.log(payload)
-    }
+    const payload = {
+      id: data,
+      title: formData.get("title"),
+      content: formData.get("content"),
+    };
+    console.log(payload);
+    for (const keyValue of formData) console.log(keyValue);
+    switchMutation.mutate(payload);
+    setShow(false);
+  };
+  //삭제버튼
+  const deleteButton = (data) => {
+    const payload = {
+      id: data,
+    };
+    deleteMutation.mutate(payload);
+    setShow(false);
+  };
 
   const likeButton = (data) => {
     const payload = {
       id: data.id,
     };
-    console.log(payload);
     if (!data.like) {
       likeswitchMutation.mutate(payload);
     } else {
@@ -117,13 +114,13 @@ export default function DetailPin() {
   if (isError) return <p>{isError}</p>;
 
   return (
-  <DivSection>
-    <StPrev to ={"/"}> ← &nbsp;&nbsp;추천</StPrev>
-          <>
-        <DivDetailBox  key={data.data.id}>
-          <DivLeftBox style={{marginLeft: '0'}}>
-            <DivImageBox >
-              <img src={data.data.imageDetail}/>
+    <DivSection>
+      <StPrev to={"/"}> ← &nbsp;&nbsp;추천</StPrev>
+      <>
+        <DivDetailBox key={data?.data.id}>
+          <DivLeftBox style={{ marginLeft: "0" }}>
+            <DivImageBox>
+              <img src={data?.data.imageDetail} />
             </DivImageBox>
           </DivLeftBox>
           <DivRightBox>
@@ -131,8 +128,8 @@ export default function DetailPin() {
               <div className="headerbox">
                 <div>
                   <DivIconBox>
-                  {data.data.nickname == localStorage.getItem("nickname")? 
-                  <StyledSelect value={index} onChange={onSelect} >
+                    {data?.data.nickname == localStorage.getItem("nickname") ? (
+                      <StyledSelect value={index} onChange={onSelect}>
                         <option value="0">이미지 다운로드</option>
                         <option value="1">핀 수정</option>
                         <option value="2">핀 신고 </option>
@@ -177,8 +174,8 @@ export default function DetailPin() {
                 </div>
               </div>
 
-              <div className="titlebox">{data.data.title}</div>
-              <div className="contentbox">{data.data.content}</div>
+              <div className="titlebox">{data?.data.title}</div>
+              <div className="contentbox">{data?.data.content}</div>
               <div className="profilebox">
                 <div>
                   <DivProfileImageBox size="48" />
@@ -271,8 +268,8 @@ const StCommentChildDiv = styled.div`
   border-bottom-right-radius: 40px;
 `;
 
- const StLikeButton = styled.span`
- margin-top: 10px;
+const StLikeButton = styled.span`
+  margin-top: 10px;
   font-size: 19px;
   color: red;
   cursor: pointer;
