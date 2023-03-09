@@ -7,7 +7,7 @@ export const DivSection = styled.div`
   width: 100%;
   height: 100%;
   margin-top: 100px;
-`
+`;
 
 export const DivDetailBox = styled.div`
   display: flex;
@@ -16,13 +16,13 @@ export const DivDetailBox = styled.div`
   max-width: 1020px;
   width: 1020px;
   box-shadow: 0px 0px 15px 0px #ccc;
-  border-radius: 32px; 
-`
+  border-radius: 32px;
+`;
 
 export const DivLeftBox = styled.div`
   min-width: 508px;
   max-width: 508px;
-`
+`;
 
 export const DivImageBox = styled.div`
   max-width: 508px;
@@ -31,15 +31,15 @@ export const DivImageBox = styled.div`
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
-  
+
   padding: 20px;
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 15px 0 0 15px;
   }
-`
+`;
 
 export const DivRightBox = styled.div`
   min-width: 508px;
@@ -48,55 +48,54 @@ export const DivRightBox = styled.div`
   flex-direction: column;
   gap: 40px;
   padding: 40px;
-`
+`;
 
 export const DivInfoBox = styled.div`
   width: 444px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  .headerbox{
+  .headerbox {
     width: 100%;
     height: 60px;
     display: flex;
     justify-content: space-between;
-    div{
+    div {
       display: flex;
       align-content: center;
     }
   }
-  .writerbox{
+  .writerbox {
     width: 100%;
     font-size: 21px;
-    span{
+    span {
       font-weight: 600;
     }
   }
-  .titlebox{
+  .titlebox {
     width: 100%;
     font-size: 36px;
     font-weight: 600;
   }
-  .contentbox{
+  .contentbox {
     font-size: 12px;
     font-weight: 600;
   }
-  .profilebox{
+  .profilebox {
     display: flex;
     gap: 5px;
     align-content: center;
     font-size: 14px;
-    div{
+    div {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      .username{
-      font-weight: 600;
+      .username {
+        font-weight: 600;
       }
     }
   }
-`
-
+`;
 
 export const DivIconBox = styled.div`
   position: relative;
@@ -104,10 +103,10 @@ export const DivIconBox = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 20px;
-  &:hover{
+  &:hover {
     background-color: rgb(233, 233, 233);
-  }  
-`
+  }
+`;
 
 export const DivButton = styled.button`
   display: flex;
@@ -121,24 +120,24 @@ export const DivButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   color: white;
-  &:hover{
-    background-color: #6e242d
+  &:hover {
+    background-color: #6e242d;
   }
-`
+`;
 export const DefaultIcon = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 20px;
-  &:hover{
+  &:hover {
     background-color: rgb(233, 233, 233);
-  }  
-`
+  }
+`;
 export const DivProfileImageBox = styled.div`
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-`
+`;

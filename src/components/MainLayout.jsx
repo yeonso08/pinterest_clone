@@ -32,7 +32,6 @@ export default function MainLayout() {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight * 0.95) {
-      console.log("shj", scrollHeight);
       setPage(page + 1);
       return fetchNextPage();
     }
@@ -54,10 +53,8 @@ export default function MainLayout() {
         size: SIZE,
       },
     });
-    console.log("res", res);
     // console.log("onsucc", response.pages);
     setTemps([...temp, ...res.data.content]);
-
 
     return {
       lists: res.data,
@@ -76,18 +73,12 @@ export default function MainLayout() {
     status,
   } = useInfiniteQuery(["pins"], fetchProjects, {
     getNextPageParam: (lastpage, pages) => {
-      console.log("getnextPageParmr : ", lastpage, pages);
       if (!lastpage.isLast) return lastpage.offset + 1;
       return undefined;
     },
     onSuccess: (response) => {},
-    onError: (error) => {
-      console.log("error", error);
-    },
+    onError: (error) => {},
   });
-  console.log("temp", temp);
-  console.log("hnp?", hasNextPage);
-  console.log(temp);
 
   // useInfiniteQuery({
   //   queryKey: ["projects"],

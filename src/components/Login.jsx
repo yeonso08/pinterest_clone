@@ -6,13 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { logIn } from "../api/sign";
 
 const Login = ({ show, onHide, check }) => {
-  console.log(show);
   const navigate = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const { mutate } = useMutation(logIn, {
     onSuccess: (response) => {
-      console.log("res: ", response);
       if (response) {
         alert("로그인 성공?");
         check();
@@ -21,7 +19,6 @@ const Login = ({ show, onHide, check }) => {
       }
     },
     onError: (error) => {
-      console.log(error);
       alert("아이디, 비밀번호 다시한번 확인하세요");
     },
   });

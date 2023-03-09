@@ -95,14 +95,12 @@ export default function DetailPin() {
     };
     deleteMutation.mutate(payload);
     setShow(false);
-    console.log(payload);
   };
 
   const likeButton = (data) => {
     const payload = {
       id: data.id,
     };
-    console.log(payload);
     if (!data.like) {
       likeswitchMutation.mutate(payload);
     } else {

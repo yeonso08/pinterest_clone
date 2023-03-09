@@ -34,12 +34,9 @@ const CreatePin = () => {
 
   const uploadMutation = useMutation(upload, {
     onSuccess: (response) => {
-      console.log(response);
       navigate("/");
     },
-    onError: (response) => {
-      console.log(response);
-    },
+    onError: (response) => {},
   });
 
   const saveImgFile = (e) => {

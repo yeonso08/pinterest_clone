@@ -8,7 +8,6 @@ import Pin from "../Pin";
 
 export default function CreatedProfile() {
   const { isLoading, isError, data: temp } = useQuery("mypins", getMyCreatePin);
-  console.log("temptemptemptemp", temp);
 
   return (
     <StDiv>

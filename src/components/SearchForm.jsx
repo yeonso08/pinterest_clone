@@ -14,8 +14,6 @@ export default function SearchForm() {
 
   const handleKeyDown = async (event) => {
     if (event.keyCode === 13) {
-      console.log("Enter key pressed");
-
       // 여기에 엔터를 눌렀을 때 실행할 코드를 작성합니다.
       // const { data } = await instance.get(`/pins/search`, {
       //   params: {
