@@ -13,9 +13,7 @@
 - 팀원2: 지설희 - 로그인, 회원가입 기능 구현
 
 ### ⚙️ 개발 환경
-- **Server** : 
 - **Framework** : React
-- **Database** :
 - **View** : HTML, CSS, Javascript
 - **Tool** : Git, Notion
 
